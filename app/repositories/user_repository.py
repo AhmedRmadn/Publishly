@@ -21,6 +21,18 @@ class UserRepository:
         user =  self.__db.query(User).filter(User.username == username).first()
         return user
 
+    def set_user_profile_image(self, user: User , profile_image_url: str):
+        user.profile_image_url = profile_image_url
+        self.__db.commit()
+        self.__db.refresh(user)
+
+    def set_user_cover_image(self, user: User , cover_image_url: str):
+        user.cover_image_url = cover_image_url
+        self.__db.commit()
+        self.__db.refresh(user)
+
+
+
 
 def get_user_repository(db: Session = Depends(get_db)) -> UserRepository:
     return UserRepository(db)

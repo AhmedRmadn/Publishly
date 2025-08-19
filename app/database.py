@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 
 DATABASE_URL = "postgresql+psycopg2://postgres:1902@localhost:5432/publishly"
 
-engine = create_engine(DATABASE_URL ,echo=True)
+engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
