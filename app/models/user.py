@@ -15,6 +15,7 @@ class User(Base):
     username = Column(String , unique=True)
     email = Column(String, unique=True)
     password = Column(String)
+    role = Column(String, default='user')
     posts = relationship("Post", back_populates="author")
     profile_image_url = Column(String)
     cover_image_url = Column(String)

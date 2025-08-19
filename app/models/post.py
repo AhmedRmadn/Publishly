@@ -12,6 +12,7 @@ class Post(Base):
     id = Column(Integer,primary_key=True,autoincrement=True)
     title = Column(String,nullable=False)
     content = Column(String, nullable=False)
+    poster_image_url = Column(String)
     author_id = Column(Integer, ForeignKey("users.id"))
     author = relationship("User",back_populates="posts")
     liked_by = relationship(
