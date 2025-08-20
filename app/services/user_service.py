@@ -10,7 +10,7 @@ from app.schemas.user_schema import CreateUserRequest
 from app.models.user import User
 from app.utils.hash_utils import Hash
 from app.utils.jwt_utils import get_current_user, create_access_token, Token
-
+from typing import Optional
 
 class UserService:
     def __init__(self, user_repo : UserRepository):
@@ -26,7 +26,7 @@ class UserService:
             role=create_user_request.role,
             password=Hash.bcrypt_hash(create_user_request.password)
         )
-        self.__user_repo.save_user(user)
+        user = self.__user_repo.save_user(user)
         return user
 
     def authenticate_user(self,username: str, password: str):
@@ -54,7 +54,7 @@ class UserService:
         path = f"app/images/profile/{filename}"
         with open(path, "w+b") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        self.__user_repo.set_user_profile_image(user, path)
+        user = self.__user_repo.set_user_profile_image(user, path)
         return user
 
     def update_user_cover_image(self , user : User, image : UploadFile):
@@ -66,8 +66,12 @@ class UserService:
         path = f"app/images/cover/{filename}"
         with open(path, "w+b") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        self.__user_repo.set_user_cover_image(user, path)
+        user = self.__user_repo.set_user_cover_image(user, path)
         return user
+    
+    def get_user_by_id(self, id : int) -> Optional[User]:
+        return self.__user_repo.get_user_by_id(id)
+
 
 
 

@@ -2,12 +2,11 @@ from typing import List
 from fastapi import APIRouter, Depends, UploadFile, File
 from fastapi.security import OAuth2PasswordRequestForm
 
-from app.schemas.user_schema import CreateUserRequest, UserResponse
+from app.schemas.user_schema import CreateUserRequest, UserResponse, UserPageResponse
 from app.services.user_service import UserService, get_user_service
-from app.utils.jwt_utils import Token
 
 from app.models.user import User
-from app.utils.jwt_utils import get_current_user, create_access_token, Token
+from app.utils.jwt_utils import get_current_user
 
 router = APIRouter(
     prefix="/user",
@@ -29,3 +28,7 @@ def upload_profile_image(image: UploadFile = File(...) ,user : User = Depends(ge
 @router.post("/upload-cover-image", response_model=UserResponse)
 def upload_cover_image(image: UploadFile = File(...) ,user : User = Depends(get_current_user), user_service: UserService = Depends(get_user_service)):
     return user_service.update_user_cover_image(user,image)
+
+@router.get("/{id}", response_model=UserPageResponse)
+def get_user(id:int , user_service: UserService = Depends(get_user_service)):
+    return user_service.get_user_by_id(id)

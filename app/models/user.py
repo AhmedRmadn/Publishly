@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.database import Base
-from app.models.user_likes_post import user_likes_post
+from app.models.user_likes_article import user_likes_article
 
 
 class User(Base):
@@ -16,12 +16,12 @@ class User(Base):
     email = Column(String, unique=True)
     password = Column(String)
     role = Column(String, default='user')
-    posts = relationship("Post", back_populates="author")
+    articles = relationship("Article", back_populates="author")
     profile_image_url = Column(String)
     cover_image_url = Column(String)
-    liked_posts = relationship(
-        "Post",
-        secondary=user_likes_post,
+    liked_articles = relationship(
+        "Article",
+        secondary=user_likes_article,
         back_populates="liked_by"
     )
 

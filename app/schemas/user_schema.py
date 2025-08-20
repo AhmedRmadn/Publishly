@@ -12,6 +12,7 @@ class CreateUserRequest(BaseModel):
     role: str
 
 class UserResponse(BaseModel):
+    id: int
     username: str
     email: str
     first_name: str
@@ -19,6 +20,25 @@ class UserResponse(BaseModel):
     role: str
     profile_image_url: Optional[str] = None
     cover_image_url: Optional[str] = None
-    liked_posts: list
-    posts: list
 
+class ArticleUserSchema(BaseModel):
+    id : int
+    title : str
+    poster_image_url : Optional[str] = None
+    author_id : int
+    count_likes : int
+    class Config:
+        from_attributes = True
+
+class UserPageResponse(BaseModel):
+    id: int
+    username: str
+    email: str
+    first_name: str
+    last_name: str
+    role: str
+    profile_image_url: Optional[str] = None
+    cover_image_url: Optional[str] = None
+    articles: list[ArticleUserSchema] = None
+    class Config:
+        from_attributes = True
