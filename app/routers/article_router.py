@@ -23,7 +23,7 @@ def upload(user: User = Depends(get_current_user),
 @router.post("/upload-image")
 def upload(_: User = Depends(get_current_user),
            article_service : ArticleService = Depends(get_article_service),file: UploadFile = File(...)):
-    return {"link": article_service.uploadImage(file)}
+    return {"url": article_service.uploadImage(file)}
 
 @router.get("", response_model=List[ArticlePreviewResponse])
 def get_all_articles(article_service : ArticleService = Depends(get_article_service)):
@@ -32,6 +32,9 @@ def get_all_articles(article_service : ArticleService = Depends(get_article_serv
 @router.get("/{id}" , response_model= ArticleResponse)
 def get_article_by_id(id : int , article_service : ArticleService = Depends(get_article_service)):
     return article_service.get_article_by_id(id)
+
+
+
 
 
 

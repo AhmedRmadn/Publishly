@@ -49,11 +49,11 @@ class UserService:
         letters = string.ascii_letters
         random_str = ''.join(random.choice(letters) for i in range(10))
         new = f"{random_str}."
-        print(new,"profile")
-        filename = new + image.filename.split('.', 1)[-1]
+        filename = new + ".jpg"
         path = f"app/images/profile/{filename}"
         with open(path, "w+b") as buffer:
             shutil.copyfileobj(image.file, buffer)
+        path = f"http://localhost:8000/{path}"
         user = self.__user_repo.set_user_profile_image(user, path)
         return user
 
@@ -61,16 +61,19 @@ class UserService:
         letters = string.ascii_letters
         random_str = ''.join(random.choice(letters) for i in range(10))
         new = f"{random_str}."
-        print(new,"profile")
-        filename = new + image.filename.split('.', 1)[-1]
+        filename = new + ".jpg"
         path = f"app/images/cover/{filename}"
         with open(path, "w+b") as buffer:
             shutil.copyfileobj(image.file, buffer)
+        path = f"http://localhost:8000/{path}"
         user = self.__user_repo.set_user_cover_image(user, path)
         return user
     
     def get_user_by_id(self, id : int) -> Optional[User]:
         return self.__user_repo.get_user_by_id(id)
+    
+    def get_user_by_user_name(self, username : str) -> Optional[User]:
+        return self.__user_repo.get_user_by_username(username)
 
 
 

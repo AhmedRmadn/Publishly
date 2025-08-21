@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.database import Base, engine
 from app.routers import user_router
 from app.routers import article_router
+from app.routers import like_router
 from fastapi.staticfiles import StaticFiles
 from app.models.user import User
 from app.models.article import Article
@@ -25,6 +26,7 @@ app.add_middleware(
 
 app.include_router(user_router.router)
 app.include_router(article_router.router)
+app.include_router(like_router.router)
 app.mount("/app/images", StaticFiles(directory="app/images"), name="images")
 @app.get("/")
 async def root():

@@ -21,14 +21,23 @@ def signup(request: CreateUserRequest, user_service: UserService = Depends(get_u
 def login(form_data: OAuth2PasswordRequestForm = Depends(), user_service: UserService = Depends(get_user_service)):
     return user_service.login(form_data)
 
-@router.post("/upload-profile-image", response_model=UserResponse)
+@router.post("/update-profile-image", response_model=UserResponse)
 def upload_profile_image(image: UploadFile = File(...) ,user : User = Depends(get_current_user), user_service: UserService = Depends(get_user_service)):
     return user_service.update_user_profile_image(user,image)
 
-@router.post("/upload-cover-image", response_model=UserResponse)
+@router.post("/update-cover-image", response_model=UserResponse)
 def upload_cover_image(image: UploadFile = File(...) ,user : User = Depends(get_current_user), user_service: UserService = Depends(get_user_service)):
     return user_service.update_user_cover_image(user,image)
 
-@router.get("/{id}", response_model=UserPageResponse)
-def get_user(id:int , user_service: UserService = Depends(get_user_service)):
+@router.get("/id/{id}", response_model=UserPageResponse)
+def get_user_by_id(id:int , user_service: UserService = Depends(get_user_service)):
     return user_service.get_user_by_id(id)
+
+@router.get("/username/{username}", response_model=UserPageResponse)
+def get_user_user_name(username:str , user_service: UserService = Depends(get_user_service)):
+    return user_service.get_user_by_user_name(username)
+
+@router.get("", response_model=UserResponse)
+def get_current_user(user : User = Depends(get_current_user)):
+    return user
+
