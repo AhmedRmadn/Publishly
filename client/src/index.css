@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+/* Simplified CSS Variables - Clean Black & White Palette */
+:root {
+  --primary-color: #000000;
+  --secondary-color: #333333;
+  --accent-color: #666666;
+  --text-color: #000000;
+  --background-color: #ffffff;
+  --border-color: #e5e5e5;
+  --hover-color: #f5f5f5;
+  --error-color: #dc2626;
+  --success-color: #16a34a;
+  --warning-color: #d97706;
+}
+
+/* Froala Editor Styles - Keep as is */
+.fr-view h1 {
+  @apply text-3xl font-bold text-black;
+}
+.fr-view h2 {
+  @apply text-2xl font-semibold text-black;
+}
+.fr-view h3 {
+  @apply text-xl font-semibold text-black;
+}
+.fr-view p {
+  @apply my-2 leading-relaxed text-black;
+}
+.fr-view a {
+  @apply text-blue-600 underline;
+}
+.fr-view img {
+  @apply rounded-lg shadow-md my-4;
+}
+.fr-view ul {
+  @apply list-disc pl-6 text-black;
+}
+.fr-view ol {
+  @apply list-decimal pl-6 text-black;
+}
+.fr-view blockquote {
+  @apply border-l-4 pl-4 italic text-gray-600;
+}
+
+/* Simplified Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+/* Clean Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Clean Focus States */
+*:focus {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+/* Simple Button Hover Effects */
+.btn-hover-effect {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-hover-effect:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Clean Card Shadows */
+.card-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-shadow-hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Simple Loading States */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Clean Form Elements */
+.form-input-enhanced {
+  transition: all 0.3s ease;
+  border: 2px solid #e5e5e5;
+  background: #ffffff;
+}
+
+.form-input-enhanced:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Simple Hover Effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Clean Grid Layouts */
+.grid-responsive {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+@media (min-width: 768px) {
+  .grid-responsive {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-responsive {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
