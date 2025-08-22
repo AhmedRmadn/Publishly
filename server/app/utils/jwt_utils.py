@@ -6,7 +6,9 @@ from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from app.models.user import User
 from jose import jwt, JWTError
-
+from app.config import SECRET_KEY
+from app.config import ALGORITHM
+from app.config import ACCESS_TOKEN_EXPIRE_MINUTES
 from app.repositories.user_repository import UserRepository, get_user_repository
 
 
@@ -14,11 +16,8 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-
-SECRET_KEY = '157b2c37c391bed93fe80344fe73b806947a65e36206e05a1a23c2fa12702fe3'
-ALGORITHM = 'HS256'
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl='user/login')
-expires_delta = timedelta(minutes=15)
+expires_delta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
 
 
 def create_access_token(user : User) -> Token:

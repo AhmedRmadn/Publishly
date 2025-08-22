@@ -5,3 +5,4 @@ __pycache__/
 app/images/article/*
 app/images/cover/*
 app/images/profile/*
+.env

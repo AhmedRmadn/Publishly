@@ -24,3 +24,5 @@ python-multipart      # Form data (needed for login)
 # Optional (for testing, dev)
 pytest
 httpx
+
+python-dotenv
