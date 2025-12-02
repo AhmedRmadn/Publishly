@@ -1,27 +1,27 @@
 # FastAPI + ASGI server
-fastapi
-uvicorn[standard]
+fastapi==0.123.0
+uvicorn[standard]==0.38.0
 
 # Database (SQLAlchemy + Postgres)
-SQLAlchemy
-psycopg2-binary
+SQLAlchemy==2.0.44
+psycopg2-binary==2.9.11
 
 # Pydantic for validation & configuration
-pydantic
-pydantic-settings
+pydantic==2.12.5
+pydantic-settings==2.12.0
 
 # Security / Auth
-passlib
-bcrypt==4.0.1          
-python-jose[cryptography]
-python-multipart
+passlib==1.7.4
+bcrypt==4.0.1             # Key fix for the crash
+python-jose[cryptography]==3.5.0
+python-multipart==0.0.20
 
 # File Handling
-aiofiles
+aiofiles==25.1.0
 
 # Configuration
-python-dotenv
+python-dotenv==1.2.1
 
 # Testing
-pytest
-httpx
+pytest==9.0.1
+httpx==0.28.1
