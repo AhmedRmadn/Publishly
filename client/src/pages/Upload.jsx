@@ -33,71 +33,46 @@ export default function Upload() {
     upload(articleData);
   };
   // 2. Create the memoized config object
+// 2. Create the memoized config object
   const froalaConfig = useMemo(
     () => ({
+      // ... your toolbarButtons and pluginsEnabled remain the same ...
       toolbarButtons: [
-        "bold",
-        "italic",
-        "underline",
-        "strikeThrough",
-        "subscript",
-        "superscript",
-        "|",
-        "fontFamily",
-        "fontSize",
-        "textColor",
-        "backgroundColor",
-        "paragraphFormat",
-        "lineHeight",
-        "|",
-        "formatUL",
-        "formatOL",
-        "outdent",
-        "indent",
-        "quote",
-        "|",
-        "insertLink",
-        "insertImage",
-        "insertTable",
-        "|",
-        "undo",
-        "redo",
-        "html",
+        "bold", "italic", "underline", "strikeThrough", "subscript", "superscript", "|",
+        "fontFamily", "fontSize", "textColor", "backgroundColor", "paragraphFormat", "lineHeight", "|",
+        "formatUL", "formatOL", "outdent", "indent", "quote", "|",
+        "insertLink", "insertImage", "insertTable", "|",
+        "undo", "redo", "html",
       ],
       pluginsEnabled: [
-        "align",
-        "colors",
-        "emoticons",
-        "fontSize",
-        "fontFamily",
-        "lineHeight",
-        "link",
-        "lists",
-        "paragraphFormat",
-        "quote",
-        "table",
-        "url",
-        "image",
+        "align", "colors", "emoticons", "fontSize", "fontFamily", "lineHeight", "link", "lists", "paragraphFormat", "quote", "table", "url", "image",
       ],
 
-      // Image upload hook (you already had this 👇)
       imageUpload: true,
       imageUploadURL: null,
       events: {
-        "image.beforeUpload": async function (files) {
+        // REMOVED 'async' keyword here
+        "image.beforeUpload": function (files) {
+          const editor = this; // Capture the Froala instance
+
           if (files.length) {
-            try {
-              const data = await uploadImageAsync({ file: files[0] });
-              this.image.insert(data.url, true, null, this.image.get(), null);
-            } catch (err) {
-              console.error("Upload failed", err);
-            }
+            // Use .then() instead of await
+            uploadImageAsync({ file: files[0] })
+              .then((data) => {
+                // Insert the image using the captured 'editor' reference
+                editor.image.insert(data.url, true, null, editor.image.get(), null);
+              })
+              .catch((err) => {
+                console.error("Upload failed", err);
+              });
           }
+
+          // This must run SYNCHRONOUSLY to stop Froala's default behavior
           return false;
         },
       },
     }),
-    []
+    [uploadImageAsync] // Add uploadImageAsync to dependency array
   );
 
   return (

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # 🐘 Database (Internal Only - No Ports Mapped)
+  db:
+    image: postgres:14-alpine
+    container_name: publishly_db
+    restart: always
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: publishly
+    # No 'ports' section here! It's hidden from the host.
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U username -d publishly"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 🐍 Backend (Internal Only - No Ports Mapped)
+  backend:
+      build:
+        context: ./server
+        dockerfile: Dockerfile
+      container_name: publishly_backend
+      restart: always
+      
+      # 👇 ADD THIS SECTION 👇
+      ports:
+        - "8000:8000"  # Maps Host Port 8000 -> Container Port 8000
+      
+      volumes:
+        - ./server:/app
+      env_file:
+        - ./server/.env
+      depends_on:
+        db:
+          condition: service_healthy
+      # Keep your reload-exclude command!
+      command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-exclude "*/images/*"
+  # ⚛️ Frontend (The Only Entry Point)
+  frontend:
+      build:
+        context: ./client
+        dockerfile: Dockerfile
+      container_name: publishly_frontend
+      ports:
+        - "5173:5173"
+      volumes:
+        - ./client:/app
+        - /app/node_modules
+      environment:
+        - BACKEND_TARGET=http://backend:8000 
+      depends_on:
+        - backend
+      command: npm run dev -- --host
+volumes:
+  postgres_data:

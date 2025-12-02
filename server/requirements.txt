@@ -1,28 +1,27 @@
-fastapi
-uvicorn
-sqlalchemy
-pydantic
-python-multipart
-aiofiles
 # FastAPI + ASGI server
 fastapi
-uvicorn
+uvicorn[standard]
 
 # Database (SQLAlchemy + Postgres)
 SQLAlchemy
-psycopg2-binary        # Postgres driver
+psycopg2-binary
 
-# Pydantic for validation
+# Pydantic for validation & configuration
 pydantic
-pydantic-settings     # Manage settings from .env
+pydantic-settings
 
 # Security / Auth
-passlib[bcrypt]       # Password hashing
-python-jose           # JWT tokens
-python-multipart      # Form data (needed for login)
+passlib
+bcrypt==4.0.1          
+python-jose[cryptography]
+python-multipart
 
-# Optional (for testing, dev)
+# File Handling
+aiofiles
+
+# Configuration
+python-dotenv
+
+# Testing
 pytest
 httpx
-
-python-dotenv
