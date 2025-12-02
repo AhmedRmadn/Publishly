@@ -2,7 +2,13 @@ venv/
 env/
 __pycache__/
 
+# 1. Ignore everything inside these folders
 app/images/article/*
 app/images/cover/*
 app/images/profile/*
-.env
+
+# 2. But do NOT ignore the .gitkeep files
+# This forces Git/Docker to see the folder because it contains this one file
+!app/images/article/.gitkeep
+!app/images/cover/.gitkeep
+!app/images/profile/.gitkeep
