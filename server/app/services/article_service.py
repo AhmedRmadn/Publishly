@@ -19,7 +19,8 @@ class ArticleService:
         path = f"app/images/article/{filename}"
         with open(path, "w+b") as buffer:
             shutil.copyfileobj(file.file, buffer)
-        return f"http://localhost:8000/{path}"
+        # return f"http://localhost:8000/{path}"
+        return f'/{path}'
     
     def publish_article(self, user : User, title: str, content: str , poster: UploadFile) -> Article:
         poster_image_url = self.uploadImage(poster)

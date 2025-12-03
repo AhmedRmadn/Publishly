@@ -53,7 +53,8 @@ class UserService:
         path = f"app/images/profile/{filename}"
         with open(path, "w+b") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        path = f"http://localhost:8000/{path}"
+        # path = f"http://localhost:8000/{path}"
+        path = f'/{path}'
         user = self.__user_repo.set_user_profile_image(user, path)
         return user
 
@@ -65,7 +66,8 @@ class UserService:
         path = f"app/images/cover/{filename}"
         with open(path, "w+b") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        path = f"http://localhost:8000/{path}"
+        # path = f"http://localhost:8000/{path}"
+        path = f'/{path}'
         user = self.__user_repo.set_user_cover_image(user, path)
         return user
     
