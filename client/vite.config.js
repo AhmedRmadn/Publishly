@@ -8,6 +8,7 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173,
+    allowedHosts: true,
     proxy: {
       '/app/images': {
         target: 'http://backend:8000',

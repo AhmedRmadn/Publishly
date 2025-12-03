@@ -26,11 +26,6 @@ services:
         dockerfile: Dockerfile
       container_name: publishly_backend
       restart: always
-      
-      # 👇 ADD THIS SECTION 👇
-      ports:
-        - "8000:8000"  # Maps Host Port 8000 -> Container Port 8000
-      
       volumes:
         - ./server:/app
       env_file:
