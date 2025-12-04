@@ -1,11 +1,11 @@
-const base = "http://localhost:8000/user/";
+const base = "/user";
 
 export async function login(authData) {
   const formData = new URLSearchParams();
   formData.append("username", authData.username);
   formData.append("password", authData.password);
 
-  const auth = await fetch(`${base}login`, {
+  const auth = await fetch(`${base}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -30,7 +30,7 @@ export async function login(authData) {
 
 // services/AuthService.js
 export async function register(authData) {
-  const response = await fetch(`${base}signup `, {
+  const response = await fetch(`${base}/signup `, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

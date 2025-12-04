@@ -1,4 +1,4 @@
-const base = "http://localhost:8000/user/";
+const base = "/user";
 const tokenKeyStorage = "access_token";
 
 export async function fetchUserProfile() {
@@ -18,7 +18,7 @@ export async function fetchUserProfile() {
 }
 
 export async function fetchUserProfileByUserName(userName) {
-  const res = await fetch(`${base}username/${userName}`);
+  const res = await fetch(`${base}/username/${userName}`);
 
   if (!res.ok) {
     throw new Error("could not load user page try again later");
@@ -34,7 +34,7 @@ export async function updateUserProfile(profileImage) {
   const formData = new FormData();
   formData.append("image", profileImage);
 
-  const res = await fetch(`${base}update-profile-image`, {
+  const res = await fetch(`${base}/update-profile-image`, {
     method: "POST",
     body: formData,
     headers: {
@@ -54,7 +54,7 @@ export async function updateUserCover(coverImage) {
   const formData = new FormData();
   formData.append("image", coverImage);
 
-  const res = await fetch(`${base}update-cover-image`, {
+  const res = await fetch(`${base}/update-cover-image`, {
     method: "POST",
     body: formData,
     headers: {

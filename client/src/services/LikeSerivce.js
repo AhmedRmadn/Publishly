@@ -1,4 +1,4 @@
-const base = "http://localhost:8000/like/";
+const base = "/like";
 const tokenKeyStorage = "access_token";
 
 export async function userLikesArticle(articleId) {
@@ -6,7 +6,7 @@ export async function userLikesArticle(articleId) {
   if (!token) {
     throw new Error(`login first`);
   }
-  const res = await fetch(`${base}${articleId}`, {
+  const res = await fetch(`${base}/${articleId}`, {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,

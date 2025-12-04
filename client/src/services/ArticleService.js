@@ -1,4 +1,4 @@
-const base = "http://localhost:8000/article/";
+const base = "/article";
 const tokenKeyStorage = "access_token";
 export async function fetchAllArticles() {
   try {
@@ -42,7 +42,7 @@ async function does_user_like_article(articleId) {
   if (!token) {
     return false;
   }
-  const res = await fetch(`http://localhost:8000/like/${articleId}`, {
+  const res = await fetch(`/like/${articleId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ export async function fetchArticle(id) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-    const res = await fetch(`${base}${id}`, {
+    const res = await fetch(`${base}/${id}`, {
       signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export async function upload(articleData) {
   }
   formData.append("content", articleData.model);
 
-  const response = await fetch(`${base}create-article`, {
+  const response = await fetch(`${base}/create-article`, {
     // removed trailing space
     method: "POST",
     headers: {
@@ -132,7 +132,7 @@ export async function uploadImage(fileData) {
   const formData = new FormData();
   formData.append("file", fileData.file);
 
-  const response = await fetch(`${base}upload-image`, {
+  const response = await fetch(`${base}/upload-image`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
